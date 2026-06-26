@@ -1,1 +1,484 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Entrevistas – Toyota Lindavista</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23CC0000'/><text y='.9em' font-size='80' x='10'>🚗</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--rojo:#CC0000;--rojo-dark:#990000;--negro:#1A1A1A;--gris:#555;--gris-claro:#F4F4F4;--borde:#D8D8D8;--blanco:#FFFFFF;--ff:'Inter',sans-serif}
+body{font-family:var(--ff);font-size:13px;color:var(--negro);background:#EFEFEF;min-height:100vh}
+.wrapper{max-width:900px;margin:0 auto;background:#fff;min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,.1)}
+.header{background:#000;display:flex;align-items:stretch;height:56px}
+.header-red{background:#CC0000;padding:0 14px;display:flex;align-items:center;gap:10px;flex-shrink:0}
+.logo-svg{width:32px;height:32px}
+.logo-text{color:#fff;font-size:15px;font-weight:700;letter-spacing:1px;font-family:var(--ff)}
+.header-sep{width:1px;background:#333;margin:8px 0}
+.header-info{padding:0 16px;display:flex;flex-direction:column;justify-content:center}
+.header-title{color:#fff;font-size:13px;font-weight:600}
+.header-sub{color:#aaa;font-size:12px;margin-top:2px}
+.tabs{display:flex;border-bottom:2px solid var(--borde);background:var(--blanco)}
+.tab{padding:11px 20px;font-size:13px;font-weight:600;cursor:pointer;color:var(--gris);border-bottom:2px solid transparent;margin-bottom:-2px;font-family:var(--ff)}
+.tab.active{color:var(--rojo);border-bottom:2px solid var(--rojo)}
+.tab:hover:not(.active){color:var(--negro)}
+.view{padding:14px 16px 20px;background:var(--blanco)}
+.sec{background:var(--negro);color:#fff;font-size:11px;font-weight:700;padding:4px 10px;border-radius:3px;margin:14px 0 8px;letter-spacing:.5px;text-transform:uppercase}
+.sec.red{background:var(--rojo)}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.g1{display:grid;grid-template-columns:1fr;gap:10px}
+.f{display:flex;flex-direction:column;gap:4px}
+.f label{font-size:11px;font-weight:700;color:var(--negro);text-transform:uppercase;letter-spacing:.3px}
+.f input,.f select,.f textarea{background:var(--gris-claro);border:1px solid var(--borde);border-radius:6px;padding:8px 11px;font-size:13px;font-weight:500;color:var(--negro);font-family:var(--ff);width:100%}
+.f textarea{resize:vertical;min-height:56px;line-height:1.5}
+.f input:focus,.f select:focus,.f textarea:focus{outline:none;border-color:var(--rojo);box-shadow:0 0 0 2px rgba(204,0,0,.1)}
+.fijo{background:#FFF0F0;border:1px solid #FFCCCC;border-radius:6px;padding:8px 11px;font-size:13px;color:var(--rojo-dark);font-weight:700;cursor:text;font-family:var(--ff)}
+.fijo:focus{outline:none;border-color:var(--rojo)}
+.idioma-col-hdr{display:grid;grid-template-columns:1fr 1fr 30px;gap:8px;padding:0 2px;margin-bottom:4px}
+.idioma-col-hdr span{font-size:10px;font-weight:700;color:var(--gris);text-transform:uppercase;letter-spacing:.3px}
+.idioma-row{display:grid;grid-template-columns:1fr 1fr 30px;gap:8px;align-items:center;margin-bottom:6px}
+.idioma-row input,.idioma-row select{background:var(--gris-claro);border:1px solid var(--borde);border-radius:6px;padding:7px 10px;font-size:13px;font-family:var(--ff);color:var(--negro);width:100%}
+.idioma-row input:focus,.idioma-row select:focus{outline:none;border-color:var(--rojo);box-shadow:0 0 0 2px rgba(204,0,0,.1)}
+.btn-del-idioma{background:none;border:1px solid #FFCCCC;border-radius:6px;width:30px;height:34px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:13px;flex-shrink:0;transition:all .15s}
+.btn-del-idioma:hover{background:#FFF0F0;border-color:var(--rojo)}
+.btn-add-idioma{background:none;border:1px dashed var(--borde);border-radius:6px;padding:7px 12px;font-size:12px;font-weight:600;cursor:pointer;color:var(--gris);font-family:var(--ff);display:flex;align-items:center;gap:5px;transition:all .15s;margin-top:2px}
+.btn-add-idioma:hover{border-color:var(--negro);color:var(--negro);background:var(--gris-claro)}
+.empleo-card{background:var(--gris-claro);border:1px solid var(--borde);border-radius:8px;padding:10px 12px;margin-bottom:8px}
+.empleo-card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.empleo-num{font-size:11px;font-weight:700;color:var(--rojo);text-transform:uppercase;letter-spacing:.3px}
+.empleo-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.empleo-grid .f input,.empleo-grid .f select,.empleo-grid .f textarea{background:#fff}
+.ev-hdr{display:grid;grid-template-columns:1fr 60px 1fr 60px;gap:7px;margin-bottom:5px}
+.ev-hdr span{font-size:11px;font-weight:700;color:var(--gris);text-transform:uppercase}
+.ev-hdr .c{text-align:center}
+.ev-row{display:grid;grid-template-columns:1fr 60px 1fr 60px;gap:7px;margin-bottom:6px;align-items:center}
+.ev-crit{background:var(--gris-claro);border-radius:6px;padding:8px 10px;font-size:13px;font-weight:500;color:var(--negro)}
+.ev-sc{background:var(--gris-claro);border:1px solid var(--borde);border-radius:6px;padding:6px;font-size:14px;font-weight:700;color:var(--negro);text-align:center;width:100%;font-family:var(--ff)}
+.ev-sc:focus{outline:none;border-color:var(--negro)}
+.prom{display:flex;align-items:center;justify-content:space-between;background:var(--negro);color:#fff;border-radius:6px;padding:10px 15px;margin:8px 0 12px}
+.prom span{font-size:13px;font-weight:600}
+.prom strong{font-size:22px}
+.res-f{display:flex;flex-direction:column;gap:4px;margin-bottom:12px}
+.res-f label{font-size:11px;font-weight:700;color:var(--negro);text-transform:uppercase;letter-spacing:.3px}
+.res-sel{background:#FFF4F4;border:1px solid #FFCCCC;border-radius:6px;padding:9px 12px;font-size:13px;font-weight:600;color:var(--rojo-dark);width:100%;font-family:var(--ff)}
+.btn{background:var(--rojo);color:#fff;border:none;border-radius:6px;padding:11px 24px;font-size:14px;font-weight:700;cursor:pointer;width:100%;margin-top:4px;font-family:var(--ff)}
+.btn:hover{background:var(--rojo-dark)}
+.btn:active{transform:scale(.98)}
+.ref-box{background:#FFFBE6;border:1px solid #E8D000;border-radius:6px;padding:10px 12px;margin-top:8px}
+.ref-box label{font-size:11px;font-weight:700;color:#5C4700;text-transform:uppercase;letter-spacing:.3px;display:block;margin-bottom:4px}
+.ref-box input{background:#fff;border:1px solid #D4B800;border-radius:5px;padding:8px 11px;font-size:13px;font-weight:500;color:var(--negro);font-family:var(--ff);width:100%}
+.ref-nota{font-size:11px;color:#7A6500;margin-top:4px}
+.tbar{display:flex;gap:8px;margin-bottom:12px;align-items:center;flex-wrap:wrap}
+.tsearch{flex:1;min-width:150px;background:var(--gris-claro);border:1px solid var(--borde);border-radius:6px;padding:8px 12px;font-size:13px;font-family:var(--ff);color:var(--negro)}
+.tsearch:focus{outline:none;border-color:var(--rojo)}
+.tfilter{background:var(--gris-claro);border:1px solid var(--borde);border-radius:6px;padding:8px 10px;font-size:13px;font-family:var(--ff);color:var(--negro)}
+.btn-dl-gen{background:var(--negro);color:#fff;border:none;border-radius:6px;padding:8px 12px;font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:6px;white-space:nowrap;font-family:var(--ff)}
+.btn-dl-gen:hover{background:#333}
+.tbl-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13px;font-family:var(--ff)}
+th{background:var(--negro);color:#fff;padding:8px 10px;text-align:left;font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.4px;white-space:nowrap}
+th:first-child{border-radius:4px 0 0 0}th:last-child{border-radius:0 4px 0 0}
+td{padding:8px 10px;border-bottom:1px solid var(--borde);color:var(--negro);vertical-align:middle;font-weight:500;font-size:13px}
+tr:hover td{background:var(--gris-claro)}
+.badge{display:inline-block;font-size:11px;padding:2px 9px;border-radius:20px;font-weight:700}
+.b-apto{background:#E6F4EA;color:#1E7B34}
+.b-esp{background:#FFF8E1;color:#7A5800}
+.b-arch{background:#E8EAF6;color:#283593}
+.b-no{background:#FFEBEE;color:#B71C1C}
+.empty{text-align:center;padding:3rem 1rem;color:var(--gris);font-size:13px}
+.action-btns{display:flex;gap:6px;align-items:center}
+.icon-btn{background:none;border:1px solid var(--borde);border-radius:5px;width:30px;height:30px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .15s;font-size:15px}
+.icon-btn.del:hover{border-color:var(--rojo);background:#FFF0F0}
+.icon-btn.edit:hover{border-color:#1565C0;background:#E3F2FD}
+.icon-btn.dl:hover{border-color:#2E7D32;background:#E8F5E9}
+.modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:100;display:none;align-items:center;justify-content:center}
+.modal-backdrop.open{display:flex}
+.modal{background:#fff;border-radius:10px;padding:24px;min-width:300px;max-width:420px;width:90%;box-shadow:0 8px 32px rgba(0,0,0,.2)}
+.modal h3{font-size:15px;font-weight:700;margin-bottom:8px;font-family:var(--ff)}
+.modal p{font-size:13px;color:var(--gris);margin-bottom:16px;font-family:var(--ff);line-height:1.5}
+.modal-btns{display:flex;gap:8px;justify-content:flex-end;margin-top:14px}
+.modal-btn{border:none;border-radius:6px;padding:8px 18px;font-size:13px;font-weight:600;cursor:pointer;font-family:var(--ff)}
+.modal-btn.cancel{background:var(--gris-claro);color:var(--negro)}
+.modal-btn.cancel:hover{background:var(--borde)}
+.modal-btn.danger{background:var(--rojo);color:#fff}
+.modal-btn.danger:hover{background:var(--rojo-dark)}
+.choice-btn{border:1px solid var(--borde);border-radius:6px;padding:10px 14px;font-size:13px;font-weight:600;cursor:pointer;background:#fff;text-align:left;font-family:var(--ff);display:flex;align-items:center;gap:10px;transition:all .15s;width:100%;margin-bottom:8px}
+.choice-btn:hover{background:var(--gris-claro);border-color:var(--negro)}
+.toast{position:fixed;bottom:20px;right:20px;background:var(--negro);color:#fff;padding:10px 18px;border-radius:6px;font-size:13px;font-family:var(--ff);font-weight:600;opacity:0;transform:translateY(10px);transition:all .3s;z-index:999;pointer-events:none}
+.toast.show{opacity:1;transform:translateY(0)}
+@media(max-width:600px){.g2{grid-template-columns:1fr}.ev-hdr,.ev-row{grid-template-columns:1fr 50px 1fr 50px}}
+</style>
+</head>
+<body>
+<div class="wrapper">
+<div class="header">
+  <div style="display:flex;align-items:center;padding:0 8px">
+    <img src="data:image/png;base64,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" alt="Toyota Lindavista" style="height:44px;display:block;object-fit:contain">
+  </div>
+  <div class="header-sep"></div>
+  <div class="header-info">
+    <div class="header-title">Reclutamiento y Selección de Personal</div>
+    <div class="header-sub">Recursos Humanos</div>
+  </div>
+</div>
 
+<div class="tabs">
+  <div class="tab active" onclick="showTab('form')">Nueva entrevista</div>
+  <div class="tab" onclick="showTab('tracker')">Tracker <span id="cnt" style="background:var(--gris-claro);color:var(--negro);font-size:11px;padding:1px 7px;border-radius:10px;margin-left:4px;font-weight:700">0</span></div>
+</div>
+
+<div id="vform" class="view">
+  <div id="edit-banner" style="display:none;background:#E3F2FD;border:1px solid #90CAF9;border-radius:6px;padding:8px 12px;margin-bottom:12px;font-size:13px;color:#1565C0;font-weight:600;align-items:center;justify-content:space-between">
+    <span>✏️ Editando registro existente</span>
+    <button onclick="cancelEdit()" style="background:none;border:none;color:#1565C0;font-weight:700;cursor:pointer;font-size:13px;font-family:var(--ff)">✕ Cancelar</button>
+  </div>
+  <button class="btn" id="btn-guardar-top" onclick="guardar()" style="margin-bottom:14px">Guardar entrevista en Tracker</button>
+  <div class="sec">Datos de la entrevista</div>
+  <div class="g2">
+    <div class="f"><label>Fecha</label><input type="date" id="f-fecha"></div>
+    <div class="f"><label>Entrevistador/a</label><div class="fijo" contenteditable="true" id="f-entrev">Ana Flores</div></div>
+    <div class="f"><label>Puesto vacante</label><input type="text" id="f-puesto" placeholder="Ej. Asesor de ventas"></div>
+    <div class="f"><label>Fuente de reclutamiento</label>
+      <select id="f-fuente" onchange="toggleReferido()">
+        <option value="">Seleccionar...</option>
+        <option>LinkedIn</option><option>OCC</option><option>Indeed</option>
+        <option value="Referido interno">Referido interno</option>
+        <option>Facebook</option><option>Bolsa interna</option><option>Otro</option>
+      </select>
+    </div>
+  </div>
+  <div class="ref-box" id="referido-row" style="display:none;margin-top:8px">
+    <label>Empleado que refiere</label>
+    <input type="text" id="f-referido" placeholder="Nombre y área del compañero que hace la recomendación">
+    <div class="ref-nota">Escribe quién de la empresa está recomendando a este candidato.</div>
+  </div>
+  <div class="sec">1 · Datos personales</div>
+  <div class="g1"><div class="f"><label>Nombre completo</label><input type="text" id="f-nombre" placeholder="Apellido Paterno Materno, Nombre(s)"></div></div>
+  <div class="g2" style="margin-top:10px">
+    <div class="f"><label>Teléfono</label><input type="tel" id="f-tel" placeholder="55 1234 5678"></div>
+    <div class="f"><label>Correo electrónico</label><input type="email" id="f-correo"></div>
+    <div class="f"><label>Edad</label><input type="number" id="f-edad" placeholder="años" min="18" max="70"></div>
+    <div class="f"><label>Fecha de nacimiento</label><input type="date" id="f-fnac"></div>
+    <div class="f"><label>Lugar de nacimiento</label><input type="text" id="f-lnac" placeholder="Ciudad, Estado"></div>
+    <div class="f"><label>CURP</label><input type="text" id="f-curp" placeholder="CURP de 18 caracteres" maxlength="18" style="text-transform:uppercase"></div>
+    <div class="f"><label>Estado civil</label>
+      <select id="f-ecivil"><option value="">Seleccionar...</option><option>Soltero/a</option><option>Casado/a</option><option>Unión libre</option><option>Divorciado/a</option><option>Viudo/a</option></select>
+    </div>
+    <div class="f"><label>¿Tiene hijos?</label>
+      <select id="f-hijos"><option value="">Seleccionar...</option><option>No</option><option>Sí – 1</option><option>Sí – 2</option><option>Sí – 3</option><option>Sí – 4 o más</option></select>
+    </div>
+    <div class="f"><label>Colonia / Zona</label><input type="text" id="f-zona"></div>
+    <div class="f"><label>Tiempo de traslado</label><input type="text" id="f-traslado" placeholder="Ej. 30 min"></div>
+    <div class="f"><label>Medio de transporte</label>
+      <select id="f-transporte"><option value="">Seleccionar...</option><option>Transporte público</option><option>Auto propio</option><option>Moto</option><option>Bicicleta</option><option>A pie</option><option>Otro</option></select>
+    </div>
+    <div class="f"><label>Tipo de vivienda</label>
+      <select id="f-vivienda"><option value="">Seleccionar...</option><option>Propia</option><option>Renta</option><option>INFONAVIT</option><option>Familiar</option><option>Otro</option></select>
+    </div>
+  </div>
+  <div class="sec">2 · Educación</div>
+  <div class="g2" style="margin-bottom:10px">
+    <div class="f"><label>Escolaridad máxima</label>
+      <select id="f-escolar"><option value="">Seleccionar...</option><option>Secundaria</option><option>Preparatoria / Bachillerato</option><option>Técnico / TSU</option><option>Licenciatura</option><option>Ingeniería</option><option>Maestría</option><option>Doctorado</option></select>
+    </div>
+    <div class="f"><label>Carrera / Área</label><input type="text" id="f-carrera"></div>
+  </div>
+  <div style="font-size:11px;font-weight:700;color:var(--negro);text-transform:uppercase;letter-spacing:.3px;margin-bottom:6px">Idiomas</div>
+  <div class="idioma-col-hdr"><span>Idioma</span><span>Nivel</span><span></span></div>
+  <div id="idiomas-list"></div>
+  <button class="btn-add-idioma" onclick="addIdioma()">＋  Agregar otro idioma</button>
+  <div class="sec">3 · Trayectoria laboral</div>
+  <div class="g2">
+    <div class="f"><label>¿Actualmente trabaja?</label>
+      <select id="f-trabaja"><option value="">Seleccionar...</option><option>Sí</option><option>No</option></select>
+    </div>
+    <div class="f"><label>¿Disponibilidad inmediata?</label>
+      <select id="f-dispo"><option value="">Seleccionar...</option><option>Sí – inmediata</option><option>Sí – con aviso 15 días</option><option>Sí – con aviso 30 días</option><option>No</option></select>
+    </div>
+    <div class="f"><label>Sueldo deseado ($)</label><input type="text" id="f-sueldo-des" placeholder="$"></div>
+  </div>
+  <!-- Empleos dinámicos -->
+  <div style="font-size:11px;font-weight:700;color:var(--negro);text-transform:uppercase;letter-spacing:.3px;margin:10px 0 6px">Historial de empleos</div>
+  <div id="empleos-list"></div>
+  <button class="btn-add-idioma" onclick="addEmpleo()">＋  Agregar empleo</button>
+
+  <div class="g1" style="margin-top:10px">
+    <div class="f"><label>Experiencia relevante para el puesto</label><textarea id="f-exp" rows="3"></textarea></div>
+    <div class="f"><label>Referencias laborales (nombre · teléfono · relación)</label><textarea id="f-refs" rows="2"></textarea></div>
+  </div>
+  <div class="sec">4 · Preguntas clave</div>
+  <div class="g1">
+    <div class="f"><label>¿Qué busca en su siguiente empleo?</label><textarea id="f-q1" rows="2"></textarea></div>
+    <div class="f"><label>¿Ha tenido conflictos laborales? ¿Cómo los resolvió?</label><textarea id="f-q2" rows="2"></textarea></div>
+  </div>
+  <div class="g2" style="margin-top:10px">
+    <div class="f"><label>¿Ha tenido personal a cargo?</label>
+      <select id="f-personal"><option value="">Seleccionar...</option><option>Sí</option><option>No</option></select>
+    </div>
+    <div class="f"><label>¿Cuántas personas?</label><input type="text" id="f-personal-num"></div>
+    <div class="f"><label>¿Limitante de horario?</label>
+      <select id="f-horario"><option value="">Seleccionar...</option><option>Sí</option><option>No</option></select>
+    </div>
+    <div class="f"><label>Tipo de contrato que busca</label>
+      <select id="f-contrato"><option value="">Seleccionar...</option><option>Tiempo completo</option><option>Medio tiempo</option><option>Por proyecto</option><option>Temporal</option><option>Indefinido</option><option>Sin preferencia</option></select>
+    </div>
+  </div>
+  <div class="sec red">5 · Evaluación del entrevistador</div>
+  <div class="ev-hdr"><span>Criterio</span><span class="c">1–5</span><span>Criterio</span><span class="c">1–5</span></div>
+  <div id="eval-rows"></div>
+  <div class="prom"><span>Calificación promedio</span><strong id="prom-val">—</strong></div>
+  <div class="res-f">
+    <label>Resultado final</label>
+    <select class="res-sel" id="f-resultado">
+      <option value="">Seleccionar resultado...</option>
+      <option>Apto – proceder</option><option>Segunda entrevista</option>
+      <option>Candidato en archivo</option><option>No apto – descartar</option>
+    </select>
+  </div>
+  <div class="f" style="margin-bottom:14px"><label>Notas y comentarios finales</label><textarea id="f-notas" rows="3"></textarea></div>
+  <button class="btn" id="btn-guardar" onclick="guardar()">Guardar entrevista en Tracker</button>
+</div>
+
+<div id="vtracker" class="view" style="display:none">
+  <div class="tbar">
+    <input class="tsearch" type="text" placeholder="Buscar por nombre..." oninput="filtrar()" id="search-input">
+    <select class="tfilter" onchange="filtrar()" id="filter-result">
+      <option value="">Todos los resultados</option>
+      <option>Apto – proceder</option><option>Segunda entrevista</option>
+      <option>Candidato en archivo</option><option>No apto – descartar</option>
+    </select>
+    <select class="tfilter" onchange="filtrar()" id="filter-puesto">
+      <option value="">Todos los puestos</option>
+    </select>
+    <select class="tfilter" onchange="filtrar()" id="filter-estatus">
+      <option value="">Todos los estatus</option>
+      <option>Investigación laboral</option>
+      <option>Psicométricos</option>
+      <option>Contratado</option>
+      <option>No contratado</option>
+      <option>Cartera</option>
+    </select>
+    <button class="btn-dl-gen" onclick="showDownloadGeneral()">Descargar reporte</button>
+  </div>
+  <div class="tbl-wrap"><div id="tracker-wrap"></div></div>
+</div>
+</div>
+
+<div id="modal-backdrop" class="modal-backdrop">
+  <div class="modal">
+    <h3 id="modal-title"></h3>
+    <p id="modal-body"></p>
+    <div id="modal-content"></div>
+    <div id="modal-btns" class="modal-btns"></div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const SUPABASE_URL='https://glwzfhimwlrsikpovkeq.supabase.co';
+const SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdsd3pmaGltd2xyc2lrcG92a2VxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI0ODA2OTAsImV4cCI6MjA5ODA1NjY5MH0.6RdQMY5KGKTVKxQFWihTGbc1HzhepwgsoilKDj3ICm4';
+
+async function sbFetch(method,path,body=null){
+  const opts={method,headers:{'Content-Type':'application/json','apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Prefer':'return=representation'}};
+  if(body) opts.body=JSON.stringify(body);
+  const r=await fetch(SUPABASE_URL+path,opts);
+  if(!r.ok){const e=await r.text();console.error('Supabase error:',e);return null;}
+  const text=await r.text();
+  return text?JSON.parse(text):null;
+}
+
+async function loadCandidatos(){
+  const data=await sbFetch('GET','/rest/v1/candidatos?select=*&order=created_at.desc');
+  if(data){
+    candidatos=data.map(r=>({
+      id:r.id,fecha:r.fecha,entrevistador:r.entrevistador,nombre:r.nombre,
+      puesto:r.puesto,fuente:r.fuente,empleadoReferente:r.empleado_referente,
+      curp:r.curp,fnac:r.fnac,lnac:r.lnac,tel:r.tel,correo:r.correo,
+      edad:r.edad,ecivil:r.ecivil,hijos:r.hijos,zona:r.zona,
+      traslado:r.traslado,transporte:r.transporte,vivienda:r.vivienda,
+      escolar:r.escolar,carrera:r.carrera,idiomas:r.idiomas||[],
+      trabaja:r.trabaja,dispo:r.dispo,sueldoDes:r.sueldo_des,
+      empleos:r.empleos||[],exp:r.exp,refs:r.refs,q1:r.q1,q2:r.q2,
+      personal:r.personal,personalNum:r.personal_num,horario:r.horario,
+      contrato:r.contrato,calificacion:r.calificacion,resultado:r.resultado,
+      estatus:r.estatus,notas:r.notas
+    }));
+    document.getElementById("cnt").textContent=candidatos.length;
+    populatePuestos();
+    renderTracker(candidatos);
+  }
+}
+
+async function sbInsert(datos){
+  return await sbFetch('POST','/rest/v1/candidatos',{
+    fecha:datos.fecha,entrevistador:datos.entrevistador,nombre:datos.nombre,
+    puesto:datos.puesto,fuente:datos.fuente,empleado_referente:datos.empleadoReferente,
+    curp:datos.curp,fnac:datos.fnac,lnac:datos.lnac,tel:datos.tel,correo:datos.correo,
+    edad:datos.edad,ecivil:datos.ecivil,hijos:datos.hijos,zona:datos.zona,
+    traslado:datos.traslado,transporte:datos.transporte,vivienda:datos.vivienda,
+    escolar:datos.escolar,carrera:datos.carrera,idiomas:datos.idiomas,
+    trabaja:datos.trabaja,dispo:datos.dispo,sueldo_des:datos.sueldoDes,
+    empleos:datos.empleos,exp:datos.exp,refs:datos.refs,q1:datos.q1,q2:datos.q2,
+    personal:datos.personal,personal_num:datos.personalNum,horario:datos.horario,
+    contrato:datos.contrato,calificacion:datos.calificacion,resultado:datos.resultado,
+    estatus:datos.estatus,notas:datos.notas
+  });
+}
+
+async function sbUpdate(id,campos){
+  return await sbFetch('PATCH',`/rest/v1/candidatos?id=eq.${id}`,campos);
+}
+
+async function sbDelete(id){
+  return await sbFetch('DELETE',`/rest/v1/candidatos?id=eq.${id}`);
+}
+
+const CRIT=[["Presentación personal","Comunicación y expresión"],["Actitud y motivación","Estabilidad laboral"],["Coherencia en respuestas","Habilidades técnicas"],["Disponibilidad real","Expectativa salarial vs. mercado"]];
+let candidatos=[];
+let editingId=null,idiomaCount=0;
+
+function save(){document.getElementById("cnt").textContent=candidatos.length;}
+
+function addIdioma(nombre='',nivel=''){
+  const id=++idiomaCount;
+  const div=document.createElement('div');div.className='idioma-row';div.id=`ir-${id}`;
+  div.innerHTML=`<input type="text" id="in-${id}" placeholder="Ej. Inglés" value="${nombre}"><select id="iv-${id}"><option value="">Nivel...</option><option ${nivel==='Básico'?'selected':''}>Básico</option><option ${nivel==='Intermedio'?'selected':''}>Intermedio</option><option ${nivel==='Avanzado'?'selected':''}>Avanzado</option><option ${nivel==='Nativo'?'selected':''}>Nativo</option></select><button class="btn-del-idioma" id="ib-${id}" onclick="removeIdioma(${id})" title="Eliminar">✕</button>`;
+  document.getElementById('idiomas-list').appendChild(div);updateDelBtns();
+}
+function removeIdioma(id){const el=document.getElementById(`ir-${id}`);if(el)el.remove();updateDelBtns();}
+function updateDelBtns(){const rows=document.querySelectorAll('.idioma-row');rows.forEach(r=>{const b=r.querySelector('.btn-del-idioma');if(b)b.style.visibility=rows.length>1?'visible':'hidden';});}
+function getIdiomas(){return Array.from(document.querySelectorAll('.idioma-row')).map(r=>{const id=r.id.replace('ir-','');return{idioma:document.getElementById(`in-${id}`)?.value||'',nivel:document.getElementById(`iv-${id}`)?.value||''};}).filter(x=>x.idioma.trim());}
+function setIdiomas(lista){document.getElementById('idiomas-list').innerHTML='';idiomaCount=0;if(!lista||!lista.length){addIdioma();return;}lista.forEach(x=>addIdioma(x.idioma,x.nivel));}
+function idiomasStr(lista){if(!lista||!lista.length)return"—";return lista.map(x=>x.idioma+(x.nivel?' ('+x.nivel+')':'')).join(', ');}
+
+// ── EMPLEOS ───────────────────────────────────────────────
+let empleoCount=0;
+function addEmpleo(emp={}){
+  const id=++empleoCount;
+  const div=document.createElement('div');
+  div.className='empleo-card';div.id=`emp-${id}`;
+  div.innerHTML=`
+    <div class="empleo-card-header">
+      <span class="empleo-num">Empleo #${id}</span>
+      <button class="btn-del-idioma" id="empb-${id}" onclick="removeEmpleo(${id})" title="Eliminar">✕</button>
+    </div>
+    <div class="empleo-grid">
+      <div class="f"><label>Empresa</label><input type="text" id="emp-empresa-${id}" placeholder="Nombre de la empresa" value="${emp.empresa||''}"></div>
+      <div class="f"><label>Puesto</label><input type="text" id="emp-puesto-${id}" placeholder="Puesto desempeñado" value="${emp.puesto||''}"></div>
+      <div class="f"><label>Tiempo laborado</label><input type="text" id="emp-tiempo-${id}" placeholder="Ej. 2 años 3 meses" value="${emp.tiempo||''}"></div>
+      <div class="f"><label>Sueldo ($)</label><input type="text" id="emp-sueldo-${id}" placeholder="$" value="${emp.sueldo||''}"></div>
+      <div class="f"><label>Motivo de separación</label>
+        <select id="emp-motivo-${id}">
+          <option value="">Seleccionar...</option>
+          <option ${emp.motivo==='Búsqueda de crecimiento'?'selected':''}>Búsqueda de crecimiento</option>
+          <option ${emp.motivo==='Mejor oferta económica'?'selected':''}>Mejor oferta económica</option>
+          <option ${emp.motivo==='Fin de contrato'?'selected':''}>Fin de contrato</option>
+          <option ${emp.motivo==='Cierre de empresa'?'selected':''}>Cierre de empresa</option>
+          <option ${emp.motivo==='Conflicto laboral'?'selected':''}>Conflicto laboral</option>
+          <option ${emp.motivo==='Cambio de giro'?'selected':''}>Cambio de giro</option>
+          <option ${emp.motivo==='Otro'?'selected':''}>Otro</option>
+        </select>
+      </div>
+    </div>`;
+  document.getElementById('empleos-list').appendChild(div);
+  updateEmpDelBtns();
+}
+function removeEmpleo(id){const el=document.getElementById(`emp-${id}`);if(el)el.remove();updateEmpDelBtns();}
+function updateEmpDelBtns(){const rows=document.querySelectorAll('.empleo-card');rows.forEach(r=>{const b=r.querySelector('.btn-del-idioma');if(b)b.style.visibility=rows.length>1?'visible':'hidden';});}
+function getEmpleos(){
+  return Array.from(document.querySelectorAll('.empleo-card')).map(r=>{
+    const id=r.id.replace('emp-','');
+    return{empresa:document.getElementById(`emp-empresa-${id}`)?.value||'',puesto:document.getElementById(`emp-puesto-${id}`)?.value||'',tiempo:document.getElementById(`emp-tiempo-${id}`)?.value||'',sueldo:document.getElementById(`emp-sueldo-${id}`)?.value||'',motivo:document.getElementById(`emp-motivo-${id}`)?.value||''};
+  }).filter(x=>x.empresa.trim()||x.puesto.trim());
+}
+function setEmpleos(lista){document.getElementById('empleos-list').innerHTML='';empleoCount=0;if(!lista||!lista.length){addEmpleo();return;}lista.forEach(x=>addEmpleo(x));}
+function empleosStr(lista){if(!lista||!lista.length)return"—";return lista.map((e,i)=>`${i+1}. ${e.empresa||'—'} · ${e.puesto||'—'} · ${e.tiempo||'—'} · Sueldo: ${e.sueldo||'—'} · Motivo: ${e.motivo||'—'}`).join(' | ');}
+
+
+function buildEval(){
+  const c=document.getElementById("eval-rows");
+  CRIT.forEach(([l,r],i)=>{const d=document.createElement("div");d.className="ev-row";d.innerHTML=`<div class="ev-crit">${l}</div><input class="ev-sc" type="number" min="1" max="5" id="ev-${i}-l" placeholder="—" oninput="calcProm()"><div class="ev-crit">${r}</div><input class="ev-sc" type="number" min="1" max="5" id="ev-${i}-r" placeholder="—" oninput="calcProm()">`;c.appendChild(d);});
+}
+function calcProm(){let vals=[];CRIT.forEach((_,i)=>{const vl=parseFloat(document.getElementById(`ev-${i}-l`).value);const vr=parseFloat(document.getElementById(`ev-${i}-r`).value);if(!isNaN(vl))vals.push(vl);if(!isNaN(vr))vals.push(vr);});const p=vals.length?(vals.reduce((a,b)=>a+b,0)/vals.length):null;document.getElementById("prom-val").textContent=p!==null?p.toFixed(1):"—";}
+function toggleReferido(){const v=document.getElementById("f-fuente").value;document.getElementById("referido-row").style.display=v==="Referido interno"?"block":"none";if(v!=="Referido interno")document.getElementById("f-referido").value="";}
+function showTab(t){document.querySelectorAll(".tab").forEach(e=>e.classList.remove("active"));document.getElementById("vform").style.display="none";document.getElementById("vtracker").style.display="none";document.querySelector(`.tab[onclick*="${t}"]`).classList.add("active");document.getElementById("v"+t).style.display="block";if(t==="tracker"){populatePuestos();renderTracker(candidatos);}}
+function toast(msg){const el=document.getElementById("toast");el.textContent=msg;el.classList.add("show");setTimeout(()=>el.classList.remove("show"),2800);}
+function gv(id){return(document.getElementById(id)||{}).value||"";}
+function guardar(){
+  const nombre=gv("f-nombre").trim();if(!nombre){toast("Escribe el nombre del candidato primero");return;}
+  let scores=[];CRIT.forEach((_,i)=>{scores.push(parseFloat(document.getElementById(`ev-${i}-l`).value)||0);scores.push(parseFloat(document.getElementById(`ev-${i}-r`).value)||0);});
+  const filled=scores.filter(x=>x>0);const prom=filled.length?(filled.reduce((a,b)=>a+b,0)/filled.length):null;
+  const entrev=document.getElementById("f-entrev").textContent.trim()||"Ana Flores";
+  const datos={fecha:gv("f-fecha")||new Date().toISOString().slice(0,10),entrevistador:entrev,nombre,puesto:gv("f-puesto"),fuente:gv("f-fuente"),empleadoReferente:gv("f-referido"),tel:gv("f-tel"),correo:gv("f-correo"),edad:gv("f-edad"),fnac:gv("f-fnac"),lnac:gv("f-lnac"),curp:gv("f-curp").toUpperCase(),ecivil:gv("f-ecivil"),hijos:gv("f-hijos"),zona:gv("f-zona"),traslado:gv("f-traslado"),transporte:gv("f-transporte"),vivienda:gv("f-vivienda"),escolar:gv("f-escolar"),carrera:gv("f-carrera"),idiomas:getIdiomas(),trabaja:gv("f-trabaja"),dispo:gv("f-dispo"),sueldoDes:gv("f-sueldo-des"),empleos:getEmpleos(),exp:gv("f-exp"),refs:gv("f-refs"),q1:gv("f-q1"),q2:gv("f-q2"),personal:gv("f-personal"),personalNum:gv("f-personal-num"),horario:gv("f-horario"),contrato:gv("f-contrato"),calificacion:prom?prom.toFixed(1):"—",resultado:gv("f-resultado"),notas:gv("f-notas")};
+  if(editingId!==null){const idx=candidatos.findIndex(c=>c.id===editingId);if(idx>-1)candidatos[idx]={...datos,id:editingId};editingId=null;document.getElementById("edit-banner").style.display="none";document.getElementById("btn-guardar").textContent="Guardar entrevista en Tracker";toast("Cambios guardados correctamente");}
+  else{candidatos.push({id:Date.now(),...datos});toast("Entrevista guardada en el Tracker");}
+  save();populatePuestos();limpiar();setTimeout(()=>showTab("tracker"),800);
+}
+function limpiar(){["f-fecha","f-puesto","f-fuente","f-referido","f-nombre","f-tel","f-correo","f-edad","f-fnac","f-lnac","f-curp","f-ecivil","f-hijos","f-zona","f-traslado","f-transporte","f-vivienda","f-escolar","f-carrera","f-trabaja","f-dispo","f-sueldo-des","f-empleo","f-exp","f-refs","f-q1","f-q2","f-personal","f-personal-num","f-horario","f-contrato","f-resultado","f-notas"].forEach(id=>{const el=document.getElementById(id);if(el)el.value="";});document.getElementById("referido-row").style.display="none";CRIT.forEach((_,i)=>{document.getElementById(`ev-${i}-l`).value="";document.getElementById(`ev-${i}-r`).value="";});document.getElementById("prom-val").textContent="—";document.getElementById("f-fecha").value=new Date().toISOString().slice(0,10);setIdiomas([]);setEmpleos([]);}
+function cancelEdit(){editingId=null;document.getElementById("edit-banner").style.display="none";document.getElementById("btn-guardar").textContent="Guardar entrevista en Tracker";document.getElementById("btn-guardar-top").textContent="Guardar entrevista en Tracker";limpiar();}
+function openModal(title,body,content){document.getElementById("modal-title").textContent=title;document.getElementById("modal-body").textContent=body;document.getElementById("modal-content").innerHTML=content;document.getElementById("modal-btns").innerHTML="";document.getElementById("modal-backdrop").classList.add("open");}
+function closeModal(){document.getElementById("modal-backdrop").classList.remove("open");}
+function confirmDelete(id){const c=candidatos.find(x=>x.id===id);openModal("¿Eliminar candidato?",`¿Segura que deseas borrar el registro de ${c.nombre}? Esta acción no se puede deshacer.`,`<div class="modal-btns"><button class="modal-btn cancel" onclick="closeModal()">Cancelar</button><button class="modal-btn danger" onclick="doDelete(${id})">Sí, eliminar</button></div>`);}
+function doDelete(id){sbDelete(id).then(()=>{toast("Registro eliminado");closeModal();loadCandidatos();});}
+function editCandidato(id){const c=candidatos.find(x=>x.id===id);if(!c)return;editingId=id;limpiar();const sv=(i,v)=>{const el=document.getElementById(i);if(el)el.value=v||"";};sv("f-fecha",c.fecha);sv("f-puesto",c.puesto);sv("f-fuente",c.fuente);sv("f-referido",c.empleadoReferente);sv("f-nombre",c.nombre);sv("f-tel",c.tel);sv("f-correo",c.correo);sv("f-edad",c.edad);sv("f-fnac",c.fnac);sv("f-lnac",c.lnac);sv("f-curp",c.curp);sv("f-ecivil",c.ecivil);sv("f-hijos",c.hijos);sv("f-zona",c.zona);sv("f-traslado",c.traslado);sv("f-transporte",c.transporte);sv("f-vivienda",c.vivienda);sv("f-escolar",c.escolar);sv("f-carrera",c.carrera);sv("f-trabaja",c.trabaja);sv("f-dispo",c.dispo);sv("f-sueldo-des",c.sueldoDes);sv("f-empleo",c.empleo);sv("f-exp",c.exp);sv("f-refs",c.refs);sv("f-q1",c.q1);sv("f-q2",c.q2);sv("f-personal",c.personal);sv("f-personal-num",c.personalNum);sv("f-horario",c.horario);sv("f-contrato",c.contrato);sv("f-resultado",c.resultado);sv("f-notas",c.notas);setIdiomas(c.idiomas||[]);setEmpleos(c.empleos||[]);if(c.fuente==="Referido interno")document.getElementById("referido-row").style.display="block";document.getElementById("edit-banner").style.display="flex";document.getElementById("btn-guardar").textContent="Guardar cambios";document.getElementById("btn-guardar-top").textContent="Guardar cambios";showTab("form");window.scrollTo(0,0);}
+function showDownloadIndividual(id){const c=candidatos.find(x=>x.id===id);openModal("Descargar reporte individual","Selecciona el formato para el reporte de "+c.nombre+":",`<button class="choice-btn" onclick="downloadIndividual(${id},'csv')">📊 Excel / CSV</button><button class="choice-btn" onclick="downloadIndividual(${id},'pdf')">📄 PDF (vista imprimible)</button><div class="modal-btns"><button class="modal-btn cancel" onclick="closeModal()">Cancelar</button></div>`);}
+function downloadIndividual(id,fmt){const c=candidatos.find(x=>x.id===id);const idsStr=idiomasStr(c.idiomas);if(fmt==="csv"){const rows=[["Campo","Valor"],["Fecha",c.fecha],["Entrevistador/a",c.entrevistador],["Puesto",c.puesto],["Fuente",c.fuente],["Referido por",c.empleadoReferente||"—"],["Nombre",c.nombre],["Teléfono",c.tel],["Correo",c.correo],["Edad",c.edad],["Fecha de nacimiento",c.fnac],["Lugar de nacimiento",c.lnac],["CURP",c.curp],["Estado civil",c.ecivil],["Hijos",c.hijos],["Zona",c.zona],["Traslado",c.traslado],["Transporte",c.transporte],["Vivienda",c.vivienda],["Escolaridad",c.escolar],["Carrera",c.carrera],["Idiomas",idsStr],["Trabaja actualmente",c.trabaja],["Disponibilidad",c.dispo],["Sueldo deseado",c.sueldoDes],["Historial de empleos",empleosStr(c.empleos)],["Experiencia",c.exp],["Referencias",c.refs],["¿Qué busca?",c.q1],["Conflictos",c.q2],["Personal a cargo",c.personal],["Cuántas personas",c.personalNum],["Limitante horario",c.horario],["Tipo contrato",c.contrato],["Calificación",c.calificacion],["Resultado",c.resultado],["Notas",c.notas]];const csv=rows.map(r=>r.map(v=>`"${String(v||"").replace(/"/g,'""')}"`).join(",")).join("\n");triggerDownload("data:text/csv;charset=utf-8,\uFEFF"+encodeURIComponent(csv),`Candidato_${c.nombre.replace(/ /g,"_")}.csv`);}else{const idRows=(c.idiomas||[]).map(x=>`<tr><td>${x.idioma}</td><td>${x.nivel||"—"}</td></tr>`).join("")||`<tr><td colspan="2">—</td></tr>`;const html=`<html><head><meta charset="utf-8"><title>${c.nombre}</title><style>body{font-family:Arial,sans-serif;padding:20px;font-size:12px}h1{font-size:15px;border-bottom:2px solid #CC0000;padding-bottom:6px;margin-bottom:12px}h2{font-size:11px;background:#222;color:#fff;padding:4px 8px;margin:12px 0 4px;border-radius:3px}table{width:100%;border-collapse:collapse}td,th{padding:4px 8px;border-bottom:1px solid #eee;vertical-align:top;text-align:left}td:first-child{font-weight:700;color:#555;width:38%}th{background:#f4f4f4;font-weight:700;font-size:10px;text-transform:uppercase}</style></head><body><h1>Toyota Lindavista — Ficha de Candidato</h1><h2>ENTREVISTA</h2><table><tr><td>Fecha</td><td>${c.fecha}</td></tr><tr><td>Entrevistador/a</td><td>${c.entrevistador}</td></tr><tr><td>Puesto</td><td>${c.puesto||"—"}</td></tr><tr><td>Fuente</td><td>${c.fuente||"—"}${c.empleadoReferente?" · Por: "+c.empleadoReferente:""}</td></tr></table><h2>DATOS PERSONALES</h2><table><tr><td>Nombre</td><td>${c.nombre}</td></tr><tr><td>Teléfono</td><td>${c.tel||"—"}</td></tr><tr><td>Correo</td><td>${c.correo||"—"}</td></tr><tr><td>Edad</td><td>${c.edad||"—"}</td></tr><tr><td>Fecha de nacimiento</td><td>${c.fnac||"—"}</td></tr><tr><td>Lugar de nacimiento</td><td>${c.lnac||"—"}</td></tr><tr><td>CURP</td><td>${c.curp||"—"}</td></tr><tr><td>Estado civil</td><td>${c.ecivil||"—"}</td></tr><tr><td>Hijos</td><td>${c.hijos||"—"}</td></tr><tr><td>Zona</td><td>${c.zona||"—"}</td></tr><tr><td>Traslado</td><td>${c.traslado||"—"} · ${c.transporte||"—"}</td></tr></table><h2>EDUCACIÓN</h2><table><tr><td>Escolaridad</td><td>${c.escolar||"—"}</td></tr><tr><td>Carrera</td><td>${c.carrera||"—"}</td></tr></table><h2>IDIOMAS</h2><table><thead><tr><th>Idioma</th><th>Nivel</th></tr></thead><tbody>${idRows}</tbody></table><h2>TRAYECTORIA</h2><table><tr><td>Trabaja actualmente</td><td>${c.trabaja||"—"}</td></tr><tr><td>Disponibilidad</td><td>${c.dispo||"—"}</td></tr><tr><td>Sueldo deseado</td><td>${c.sueldoDes||"—"}</td></tr></table><h2>HISTORIAL DE EMPLEOS</h2><table><thead><tr><th>#</th><th>Empresa</th><th>Puesto</th><th>Tiempo</th><th>Sueldo</th><th>Motivo de salida</th></tr></thead><tbody>${(c.empleos||[]).map((e,i)=>`<tr><td>${i+1}</td><td>${e.empresa||"—"}</td><td>${e.puesto||"—"}</td><td>${e.tiempo||"—"}</td><td>${e.sueldo||"—"}</td><td>${e.motivo||"—"}</td></tr>`).join("")||'<tr><td colspan="6">—</td></tr>'}</tbody></table><h2>EXPERIENCIA Y REFERENCIAS</h2><table><tr><td>Experiencia</td><td>${c.exp||"—"}</td></tr><tr><td>Referencias</td><td>${c.refs||"—"}</td></tr></table><h2>EVALUACIÓN</h2><table><tr><td>Calificación</td><td><strong>${c.calificacion}</strong></td></tr><tr><td>Resultado</td><td><strong>${c.resultado||"—"}</strong></td></tr><tr><td>Notas</td><td>${c.notas||"—"}</td></tr></table></body></html>`;const w=window.open("","_blank");w.document.write(html);w.document.close();w.print();}closeModal();}
+function showDownloadGeneral(){if(!candidatos.length){toast("No hay candidatos en el Tracker aún");return;}openModal("Descargar reporte general","Selecciona el formato para el reporte completo:",`<button class="choice-btn" onclick="downloadGeneral('csv')">📊 Excel / CSV</button><button class="choice-btn" onclick="downloadGeneral('pdf')">📄 PDF (vista imprimible)</button><div class="modal-btns"><button class="modal-btn cancel" onclick="closeModal()">Cancelar</button></div>`);}
+function downloadGeneral(fmt){if(fmt==="csv"){const headers=["Fecha","Nombre","CURP","Fecha Nac.","Puesto","Teléfono","Correo","Disponibilidad","Calificación","Resultado","Estatus"];const rows=candidatos.map(c=>[c.fecha,c.nombre,c.curp||"",c.fnac||"",c.puesto,c.tel,c.correo,c.dispo||"",c.calificacion,c.resultado,c.estatus||"Sin estatus"]);const csv=[headers,...rows].map(r=>r.map(v=>`"${String(v||"").replace(/"/g,'""')}"`).join(",")).join("\n");triggerDownload("data:text/csv;charset=utf-8,\uFEFF"+encodeURIComponent(csv),"Tracker_Candidatos_Toyota.csv");}else{const filas=candidatos.map(c=>`<tr><td>${c.fecha}</td><td>${c.nombre}</td><td>${c.curp||"—"}</td><td>${c.fnac||"—"}</td><td>${c.puesto||"—"}</td><td>${c.tel||"—"}</td><td>${c.correo||"—"}</td><td>${c.dispo||"—"}</td><td style="text-align:center">${c.calificacion}</td><td>${c.resultado||"—"}</td><td>${c.estatus||"Sin estatus"}</td></tr>`).join("");const html=`<html><head><meta charset="utf-8"><title>Tracker Toyota</title><style>body{font-family:Arial,sans-serif;padding:20px;font-size:10px}h1{font-size:14px;border-bottom:2px solid #CC0000;padding-bottom:6px;margin-bottom:12px}table{width:100%;border-collapse:collapse}th{background:#222;color:#fff;padding:5px 6px;text-align:left;font-size:9px;text-transform:uppercase}td{padding:4px 6px;border-bottom:1px solid #ddd;vertical-align:top}tr:nth-child(even)td{background:#f9f9f9}</style></head><body><h1>Toyota Lindavista — Tracker de Candidatos</h1><table><thead><tr><th>Fecha</th><th>Nombre</th><th>CURP</th><th>Fecha Nac.</th><th>Puesto</th><th>Teléfono</th><th>Correo</th><th>Disponibilidad</th><th>Cal.</th><th>Resultado</th><th>Estatus</th></tr></thead><tbody>${filas}</tbody></table></body></html>`;const w=window.open("","_blank");w.document.write(html);w.document.close();w.print();}closeModal();}
+function triggerDownload(dataUrl,filename){const a=document.createElement("a");a.href=dataUrl;a.download=filename;a.click();}
+function bc(r){if(!r)return"";if(r.includes("Apto")&&!r.includes("No"))return"b-apto";if(r.includes("Segunda"))return"b-esp";if(r.includes("archivo"))return"b-arch";if(r.includes("No apto"))return"b-no";return"";}
+function estatusBorder(e){if(e==='Investigación laboral')return'#81D4FA';if(e==='Psicométricos')return'#FFCC80';if(e==='Contratado')return'#A5D6A7';if(e==='No contratado')return'#EF9A9A';if(e==='Cartera')return'#FFF176';return'#D8D8D8';}
+function estatusColor(e){if(e==='Investigación laboral')return'#0277BD';if(e==='Psicométricos')return'#E65100';if(e==='Contratado')return'#1B5E20';if(e==='No contratado')return'#B71C1C';if(e==='Cartera')return'#F57F17';return'#555';}
+function estatusBg(e){if(e==='Investigación laboral')return'#E1F5FE';if(e==='Psicométricos')return'#FFF3E0';if(e==='Contratado')return'#E6F4EA';if(e==='No contratado')return'#FFEBEE';if(e==='Cartera')return'#FFFDE7';return'#F4F4F4';}
+function toggleEstMenu(id,e){
+  e.stopPropagation();
+  document.querySelectorAll('[id^="estmenu-"]').forEach(m=>m.style.display='none');
+  const m=document.getElementById('estmenu-'+id);
+  if(m.style.display==='block'){m.style.display='none';return;}
+  const rect=e.currentTarget.getBoundingClientRect();
+  m.style.display='block';
+  m.style.position='fixed';
+  m.style.top=(rect.bottom+4)+'px';
+  m.style.left=rect.left+'px';
+  m.style.zIndex='9999';
+}
+function selectEstatus(id,val,e){e.stopPropagation();updateEstatus(id,val);renderTracker(candidatos);}
+document.addEventListener('click',()=>{document.querySelectorAll('[id^="estmenu-"]').forEach(m=>m.style.display='none');});
+function updateEstatus(id,val){const idx=candidatos.findIndex(c=>c.id===id);if(idx>-1){candidatos[idx].estatus=val;}sbUpdate(id,{estatus:val});}
+function renderTracker(data){const w=document.getElementById("tracker-wrap");if(!data.length){w.innerHTML=`<div class="empty"><span style="font-size:40px;display:block;margin-bottom:12px">📋</span>Aún no hay candidatos registrados.<br>Llena la primera entrevista y aparecerá aquí.</div>`;return;}const rows=data.map(c=>`<tr><td>${c.fecha}</td><td><strong>${c.nombre}</strong></td><td style="font-size:11px;font-family:monospace">${c.curp||"—"}</td><td>${c.puesto||"—"}</td><td>${c.tel||"—"}</td><td style="font-size:11px">${c.correo||"—"}</td><td style="font-size:11px">${c.fnac||"—"}</td><td style="font-size:11px">${c.dispo||"—"}</td><td style="text-align:center;font-weight:700">${c.calificacion}</td><td><span class="badge ${bc(c.resultado)}">${c.resultado||"—"}</span></td><td><div class="est-wrap" style="position:relative;display:inline-block">
+      <div class="est-badge" onclick="toggleEstMenu(${c.id},event)" style="background:${estatusBg(c.estatus)};color:${estatusColor(c.estatus)};border:1.5px solid ${estatusBorder(c.estatus)};border-radius:20px;padding:4px 12px;font-size:11px;font-weight:700;font-family:var(--ff);cursor:pointer;white-space:nowrap;min-width:140px;text-align:center">${c.estatus||'Sin estatus'} ▾</div>
+      <div id="estmenu-${c.id}" style="display:none;position:fixed;background:#fff;border:1px solid #ddd;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,.15);z-index:9999;overflow:hidden;min-width:170px">
+        ${['','Investigación laboral','Psicométricos','Contratado','No contratado','Cartera'].map(opt=>
+          `<div onclick="selectEstatus(${c.id},'${opt}',event)" style="padding:8px 14px;font-size:12px;font-weight:600;font-family:var(--ff);cursor:pointer;background:${opt?estatusBg(opt):'#fff'};color:${opt?estatusColor(opt):'#555'};border-bottom:1px solid #f0f0f0">${opt||'Sin estatus'}</div>`
+        ).join('')}
+      </div>
+    </div></td><td><div class="action-btns"><button class="icon-btn edit" title="Editar" onclick="editCandidato(${c.id})">✏️</button><button class="icon-btn dl" title="Descargar" onclick="showDownloadIndividual(${c.id})">☁️</button><button class="icon-btn del" title="Eliminar" onclick="confirmDelete(${c.id})">🗑️</button></div></td></tr>`).join("");w.innerHTML=`<table><thead><tr><th>Fecha</th><th>Nombre</th><th>CURP</th><th>Puesto</th><th>Teléfono</th><th>Correo</th><th>Fecha Nac.</th><th>Disponibilidad</th><th>Cal.</th><th>Resultado</th><th>Estatus</th><th>Acciones</th></tr></thead><tbody>${rows}</tbody></table>`;}
+function populatePuestos(){
+  const sel=document.getElementById('filter-puesto');
+  if(!sel)return;
+  const current=sel.value;
+  const puestos=[...new Set(candidatos.map(c=>c.puesto).filter(Boolean))].sort();
+  sel.innerHTML='<option value="">Todos los puestos</option>'+puestos.map(p=>`<option ${p===current?'selected':''}>${p}</option>`).join('');
+}
+function filtrar(){
+  const q=document.getElementById("search-input").value.toLowerCase();
+  const r=document.getElementById("filter-result").value;
+  const p=document.getElementById("filter-puesto")?.value||"";
+  const e=document.getElementById("filter-estatus")?.value||"";
+  renderTracker(candidatos.filter(c=>{
+    const mq=!q||c.nombre.toLowerCase().includes(q);
+    const mr=!r||c.resultado===r;
+    const mp=!p||c.puesto===p;
+    const me=!e||c.estatus===e;
+    return mq&&mr&&mp&&me;
+  }));
+}
+
+buildEval();addIdioma();addEmpleo();
+document.getElementById("f-fecha").value=new Date().toISOString().slice(0,10);
+loadCandidatos();
+</script>
+</body>
+</html>
